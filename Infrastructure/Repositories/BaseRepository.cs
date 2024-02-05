@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Contexts;
+using System.Diagnostics;
 using System.Linq.Expressions;
 
 namespace Infrastructure.Repositories;
@@ -9,9 +10,14 @@ public class BaseRepository<TEntity>(DataContext context) where TEntity : class
 
     public virtual TEntity Create(TEntity entity)
     {
-        _context.Set<TEntity>().Add(entity);
-        _context.SaveChanges();
-        return entity;
+        try
+        {
+            _context.Set<TEntity>().Add(entity);
+            _context.SaveChanges();
+            return entity;
+        }
+        catch (Exception ex) { Debug.WriteLine(ex); }
+        return null!;
 
     }
 

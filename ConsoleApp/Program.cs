@@ -1,4 +1,7 @@
-﻿using Infrastructure.Contexts;
+﻿using ConsoleApp;
+using Infrastructure.Contexts;
+using Infrastructure.Dtos;
+using Infrastructure.Entities;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
@@ -21,5 +24,12 @@ var builder = Host.CreateDefaultBuilder().ConfigureServices(services =>
     services.AddScoped<ProductService>();
     services.AddScoped<RoleService>();
 
+    services.AddScoped<ConsoleUI>();
+
 
 }).Build();
+
+var consoleUI = builder.Services.GetRequiredService<ConsoleUI>();
+
+ProductDto productDto = new ProductDto();
+consoleUI.CreateProductUI(productDto);
