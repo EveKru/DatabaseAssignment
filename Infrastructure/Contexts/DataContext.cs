@@ -8,6 +8,6 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
     public DbSet<AdressEntity> Adresses { get; set; }
     public DbSet<CategoryEntity> Categories { get; set; }
     public DbSet<CustomerEntity> Customers { get; set; }
-    public DbSet<PruductEntity> Pruducts { get; set;}
+    public DbSet<ProductEntity> Products { get; set;}
     public DbSet<RoleEntity> Roles { get; set; }
 }

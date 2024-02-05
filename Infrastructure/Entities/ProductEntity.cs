@@ -3,12 +3,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructure.Entities;
 
-public class PruductEntity
+public class ProductEntity
 {
     [Key]
     public int Id { get; set; }
 
     public string Title { get; set; } = null!;
+    public string ArticleNumber { get; set; } = null!;
+    public string? Description { get; set; }
     public decimal Price { get; set; }
 
     [ForeignKey(nameof(CategoryEntity.Id))]
