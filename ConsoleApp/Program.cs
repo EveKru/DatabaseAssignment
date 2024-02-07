@@ -31,5 +31,4 @@ var builder = Host.CreateDefaultBuilder().ConfigureServices(services =>
 
 var consoleUI = builder.Services.GetRequiredService<ConsoleUI>();
 
-ProductDto productDto = new ProductDto();
-consoleUI.CreateProductUI(productDto);
+consoleUI.MainMenuUI();
