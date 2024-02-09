@@ -155,8 +155,6 @@ internal class ConsoleUI
             Console.WriteLine($"{product.Title} - {product.Category.CategoryName} ({product.Price} SEK)");
         }
 
-        Console.WriteLine("");
-        Console.Write("Press any key to continue...");
         Console.ReadKey();
     }
 
@@ -177,8 +175,6 @@ internal class ConsoleUI
         }
         else { Console.WriteLine("No product was found."); }
 
-        Console.WriteLine("");
-        Console.Write("Press any key to continue...");
         Console.ReadKey();
     }
 
@@ -333,8 +329,6 @@ internal class ConsoleUI
             Console.WriteLine($"{customer.Adress.StreetName}, {customer.Adress.PostalCode}, {customer.Adress.City}");
         }
 
-        Console.WriteLine("");
-        Console.Write("Press any key to continue...");
         Console.ReadKey();
     }
 
@@ -356,8 +350,6 @@ internal class ConsoleUI
         }
         else { Console.WriteLine("No customer was found."); }
 
-        Console.WriteLine("");
-        Console.Write("Press any key to continue...");
         Console.ReadKey();
     }
 
