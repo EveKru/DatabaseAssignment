@@ -46,11 +46,13 @@ public class BaseRepository<TEntity>(DataContext context) where TEntity : class
 
     public virtual void Delete(Expression<Func<TEntity, bool>> expression)
     {
-        var entityToDelete = _context.Set<TEntity>().FirstOrDefault(expression);
-        _context.Remove(entityToDelete!);
-        _context.SaveChanges();
+       try
+       {
+            var entityToDelete = _context.Set<TEntity>().FirstOrDefault(expression);
+            _context.Remove(entityToDelete!);
+            _context.SaveChanges();
+       }
+        catch (Exception ex) { Debug.WriteLine(ex); }
     }
-
-
 }
 

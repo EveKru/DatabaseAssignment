@@ -1,6 +1,7 @@
 ﻿using Infrastructure.Dtos;
 using Infrastructure.Entities;
 using Infrastructure.Repositories;
+using System.Diagnostics;
 
 namespace Infrastructure.Services;
 
@@ -57,8 +58,10 @@ public class CustomerService(CustomerRepository customerRepository, AdressServic
 
     public void DeleteCustomer(int id)
     {
-        _customerRepository.Delete(x => x.Id == id);
+        try
+        {
+            _customerRepository.Delete(x => x.Id == id);
+        }
+        catch (Exception ex) { Debug.WriteLine(ex); }
     }
-
-
 }

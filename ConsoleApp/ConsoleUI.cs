@@ -152,7 +152,7 @@ internal class ConsoleUI
 
         foreach (var product in products)
         {
-            Console.WriteLine($" {product.Title} - {product.Category.CategoryName} ({product.Price} SEK)");
+            Console.WriteLine($"{product.Title} - {product.Category.CategoryName} ({product.Price} SEK)");
         }
 
         Console.WriteLine("");
@@ -186,7 +186,7 @@ internal class ConsoleUI
     {
         Console.Clear();
 
-        Console.WriteLine("Enter product ID");
+        Console.Write("Enter product ID: ");
         var id = int.Parse(Console.ReadLine()!);
 
         var product = _productService.GetProductById(id);
@@ -218,9 +218,16 @@ internal class ConsoleUI
     {
         Console.Clear();
 
-        Console.Write("Enter product ID: ");
-        var id = int.Parse(Console.ReadLine()!);
-        Console.WriteLine("");
+        int id;
+        Console.Write("Enter product ID: " );
+        
+        while (!int.TryParse(Console.ReadLine(), out id))
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Not a valid ID, please try again.");
+            Console.WriteLine("");
+            Console.Write("Enter product ID: ");
+        }
 
         var product = _productService.GetProductById(id);
         Console.Clear();
@@ -228,19 +235,24 @@ internal class ConsoleUI
         {
             Console.WriteLine("Product:");
             Console.WriteLine($"{product.Title} - {product.Category.CategoryName} ({product.Price} SEK)");
+            Console.WriteLine("");
 
-            Console.Write("Are you sure you want to delete this product? y/n ");
-            var option = Console.ReadLine()!.ToLower(); ;
+            Console.Write("Are you sure you want to delete this product?");
+            Console.Write(" yes/no: ");    
+            var option = Console.ReadLine()!.ToLower(); 
             Console.WriteLine("");
 
             switch (option)
             {
-                case "y":
+                case "yes":
                     _productService.DeleteProduct(product.Id);
                     Console.WriteLine("Product was succesfully deleted.");
                     break;
-                case "n":
-                    Console.WriteLine("product was not deleted.");
+                case "no":
+                    Console.WriteLine("Product was not deleted.");
+                    break;
+                default:
+                    Console.Write("Invalid Option. Product was not deleted.");
                     break;
             }
         }
@@ -250,7 +262,7 @@ internal class ConsoleUI
         }
 
         Console.WriteLine("");
-        Console.Write("Press any key to continue...");
+        Console.Write("Press any key to re-enter main menu ...");
         Console.ReadKey();
     }
 
@@ -353,7 +365,7 @@ internal class ConsoleUI
     {
         Console.Clear();
 
-        Console.WriteLine("Enter customer email");
+        Console.Write("Enter customer email: ");
         var email = Console.ReadLine()!;
 
         var customer = _customerService.GetCustomerByEmail(email);
@@ -362,7 +374,7 @@ internal class ConsoleUI
         if (customer != null)
         {
             Console.WriteLine("Customer: ");
-            Console.WriteLine($" {customer.FirstName} {customer.LastName} - {customer.Email} - ({customer.Role.RoleName})");
+            Console.WriteLine($"{customer.FirstName} {customer.LastName} - {customer.Email} - ({customer.Role.RoleName})");
             Console.WriteLine($"{customer.Adress.StreetName}, {customer.Adress.PostalCode}, {customer.Adress.City}");
             Console.WriteLine("");
 
@@ -395,7 +407,8 @@ internal class ConsoleUI
             Console.WriteLine("");
 
             _customerService.UpdateCustomer(customer);
-            Console.WriteLine($"Updated product:");
+            Console.Clear();
+            Console.WriteLine($"Updated customer:");
             Console.WriteLine($" {customer.FirstName} {customer.LastName} ({customer.Role.RoleName})");
             Console.WriteLine($"{customer.Adress.StreetName}, {customer.Adress.StreetName}, {customer.Adress.City}");
 
@@ -410,32 +423,45 @@ internal class ConsoleUI
     public void DeleteCustomerUI()
     {
         Console.Clear();
-
+        int id;
         Console.Write("Enter customer ID: ");
-        var id = int.Parse(Console.ReadLine()!);
 
+        while (!int.TryParse(Console.ReadLine(), out id))
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Not a valid ID, please try again.");
+            Console.WriteLine("");
+            Console.Write("Enter customer ID: ");
+        }
+       
         var customer = _customerService.GetCustomerById(id);
         Console.Clear();
 
         if (customer != null)
         {
             Console.WriteLine("Customer:");
-            Console.WriteLine($" {customer.FirstName} {customer.LastName} - {customer.Email} - ({customer.Role.RoleName})");
+            Console.WriteLine($"{customer.FirstName} {customer.LastName} - {customer.Email} - ({customer.Role.RoleName})");
             Console.WriteLine($"{customer.Adress.StreetName}, {customer.Adress.PostalCode}, {customer.Adress.City}");
             Console.WriteLine("");
 
-            Console.Write("Are you sure you want to delete this customer? y/n ");
-            var option = Console.ReadLine()!.ToLower(); ;
+            Console.Write("Are you sure you want to delete this customer?");
+            Console.Write(" yes/no: ");
+            var option = Console.ReadLine()!.ToLower(); 
             Console.WriteLine("");
 
             switch (option)
             {
-                case "y":
+                case "yes":
                     _customerService.DeleteCustomer(customer.Id);
                     Console.WriteLine("customer was succesfully deleted.");
                     break;
-                case "n":
+
+                case "no":
                     Console.WriteLine("Customer was not deleted.");
+                    break;
+
+                default:
+                    Console.Write("Invalid Option. Customer was not deleted.");
                     break;
             }
         }
@@ -445,7 +471,7 @@ internal class ConsoleUI
         }
 
         Console.WriteLine("");
-        Console.Write("Press any key to continue...");
+        Console.Write("Press any key to re-enter main menu ...");
         Console.ReadKey();
     }
 }
