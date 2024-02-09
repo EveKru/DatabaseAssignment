@@ -129,6 +129,7 @@ internal class ConsoleUI
         productDto.Category = Console.ReadLine()!;
 
         var result = _productService.CreateProduct(productDto);
+        Console.Clear();
         if (result != null)
         {
             Console.Clear();
@@ -145,7 +146,7 @@ internal class ConsoleUI
 
         var products = _productService.GetAll();
 
-        Console.WriteLine("");
+        Console.Clear();
         Console.WriteLine("PRODUCTS:");
         Console.WriteLine("");
 
@@ -168,6 +169,8 @@ internal class ConsoleUI
         Console.WriteLine("");
 
         var product = _productService.GetProductById(id);
+        Console.Clear();
+
         if (product != null)
         {
             Console.WriteLine($"{product.Title} - {product.Category.CategoryName} ({product.Price} SEK)");
@@ -187,8 +190,10 @@ internal class ConsoleUI
         var id = int.Parse(Console.ReadLine()!);
 
         var product = _productService.GetProductById(id);
+        Console.Clear();
         if (product != null)
         {
+            Console.WriteLine("Product:");
             Console.WriteLine($"{product.Title} - {product.Category.CategoryName} ({product.Price} SEK)");
             Console.WriteLine("");
 
@@ -218,10 +223,26 @@ internal class ConsoleUI
         Console.WriteLine("");
 
         var product = _productService.GetProductById(id);
+        Console.Clear();
         if (product != null)
         {
-            _productService.DeleteProduct(product.Id);
-            Console.WriteLine("Product was succesfully deleted.");
+            Console.WriteLine("Product:");
+            Console.WriteLine($"{product.Title} - {product.Category.CategoryName} ({product.Price} SEK)");
+
+            Console.Write("Are you sure you want to delete this product? y/n ");
+            var option = Console.ReadLine()!.ToLower(); ;
+            Console.WriteLine("");
+
+            switch (option)
+            {
+                case "y":
+                    _productService.DeleteProduct(product.Id);
+                    Console.WriteLine("Product was succesfully deleted.");
+                    break;
+                case "n":
+                    Console.WriteLine("product was not deleted.");
+                    break;
+            }
         }
         else
         {
@@ -274,6 +295,7 @@ internal class ConsoleUI
         customerDto.City = Console.ReadLine()!;
 
         var result = _customerService.CreateCustomer(customerDto);
+        Console.Clear();
         if (result != null)
         {
             Console.Clear();
@@ -288,8 +310,8 @@ internal class ConsoleUI
         Console.Clear();
 
         var customers = _customerService.GetAll();
+        Console.Clear();
 
-        Console.WriteLine("");
         Console.WriteLine("CUSTOMERS:");
         Console.WriteLine("");
 
@@ -310,12 +332,14 @@ internal class ConsoleUI
 
         Console.Write("Enter customer email: ");
         var email = Console.ReadLine()!;
-        Console.WriteLine("");
 
         var customer = _customerService.GetCustomerByEmail(email);
+        Console.Clear();
+
         if (customer != null)
         {
-            Console.WriteLine($" {customer.FirstName} {customer.LastName} - {customer.Email} - ({customer.Role.RoleName})");
+            Console.WriteLine("Customer: ");
+            Console.WriteLine($"{customer.FirstName} {customer.LastName} - {customer.Email} - ({customer.Role.RoleName})");
             Console.WriteLine($"{customer.Adress.StreetName}, {customer.Adress.PostalCode}, {customer.Adress.City}");
         }
         else { Console.WriteLine("No customer was found."); }
@@ -333,9 +357,11 @@ internal class ConsoleUI
         var email = Console.ReadLine()!;
 
         var customer = _customerService.GetCustomerByEmail(email);
+        Console.Clear();
+
         if (customer != null)
         {
-            Console.WriteLine("");
+            Console.WriteLine("Customer: ");
             Console.WriteLine($" {customer.FirstName} {customer.LastName} - {customer.Email} - ({customer.Role.RoleName})");
             Console.WriteLine($"{customer.Adress.StreetName}, {customer.Adress.PostalCode}, {customer.Adress.City}");
             Console.WriteLine("");
@@ -387,13 +413,31 @@ internal class ConsoleUI
 
         Console.Write("Enter customer ID: ");
         var id = int.Parse(Console.ReadLine()!);
-        Console.WriteLine("");
 
         var customer = _customerService.GetCustomerById(id);
+        Console.Clear();
+
         if (customer != null)
         {
-            _customerService.DeleteCustomer(customer.Id);
-            Console.WriteLine("customer was succesfully deleted.");
+            Console.WriteLine("Customer:");
+            Console.WriteLine($" {customer.FirstName} {customer.LastName} - {customer.Email} - ({customer.Role.RoleName})");
+            Console.WriteLine($"{customer.Adress.StreetName}, {customer.Adress.PostalCode}, {customer.Adress.City}");
+            Console.WriteLine("");
+
+            Console.Write("Are you sure you want to delete this customer? y/n ");
+            var option = Console.ReadLine()!.ToLower(); ;
+            Console.WriteLine("");
+
+            switch (option)
+            {
+                case "y":
+                    _customerService.DeleteCustomer(customer.Id);
+                    Console.WriteLine("customer was succesfully deleted.");
+                    break;
+                case "n":
+                    Console.WriteLine("Customer was not deleted.");
+                    break;
+            }
         }
         else
         {

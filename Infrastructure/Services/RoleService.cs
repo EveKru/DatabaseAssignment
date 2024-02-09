@@ -7,7 +7,6 @@ public class RoleService(RoleRepository roleRepository)
 {
     private readonly RoleRepository _roleRepository = roleRepository;
 
-
     public RoleEntity CreateRole(string roleName)
     {
         var RoleEntity = _roleRepository.Get(x => x.RoleName == roleName);
