@@ -1,5 +1,6 @@
 ﻿using Infrastructure.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Contexts;
 
